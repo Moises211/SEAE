@@ -24,10 +24,10 @@ function CalcularAlternativas() {
     document.getElementById("res2").innerText = "CAE opción 2: $" + cae2.toFixed(2);
 
     if (cae1 < cae2) {
-        document.getElementById("mejor").innerText = "Mejor opción: Alternativa 1";
+        document.getElementById("mejor").innerText = "La mejor opción es la 1";
     } else if (cae2 < cae1) {
-        document.getElementById("mejor").innerText = "Mejor opción: Alternativa 2";
+        document.getElementById("mejor").innerText = "La mejor opción es la 2";
     } else {
-        document.getElementById("mejor").innerText = "Ambas son iguales";
+        document.getElementById("mejor").innerText = "Las dos opciones son iguales";
     }
 }
