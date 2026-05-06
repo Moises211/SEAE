@@ -69,4 +69,4 @@ class EvaluarAlternativas {
   }
 }
 
-export { TasaRendimiento };
+export { EvaluarAlternativas  };
