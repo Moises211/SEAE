@@ -1,4 +1,4 @@
-ffunction CalcularCAE(P, i, n) {
+function CalcularCAE(P, i, n) {
     if (P <= 0 || i <= 0 || n <= 0) {
         alert("Ingrese  solo valores válidos");
         return;
