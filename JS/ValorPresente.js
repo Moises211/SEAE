@@ -1,35 +1,35 @@
-function ValorPresente(inversionInicial, tasa, flujos) {
-  
-  // Validaciones basicas
-  if (!Array.isArray(flujos) || flujos.length === 0) {
-    return "Error: Flujos invalidos";
-  }
+// @ts-check
 
-  if (tasa <= 0) {
-    return "Error: Tasa invalida";
-  }
+/**
 
-  // Se inicia el valor presente neto (vpn) con la inversion negativa
-  let  vpn = -inversionInicial;
-  
-  //Se recorren todos los flujos
-  for (let t = 0; t < flujos.length; t++) {
-    vpn += flujos[t] / Math.pow(1 + tasa, t + 1);
-  }
+* Calcula el Valor Presente Neto (VPN)
+* @param {number} inversionInicial
+* @param {number} tasa
+* @param {Array<number>} flujos
+* @param {number} [rescate] valor de rescate opcional
+* @returns {number}
+  */
+  function ValorPresente(inversionInicial, tasa, flujos, rescate = 0) {
 
-  return vpn;
+// Se inicia con la inversión inicial negativa
+let vpn = -inversionInicial;
+
+// Cantidad de periodos
+let n = flujos.length;
+
+for (let i = 0; i < n; i++) {
+
+
+// Si es el último periodo y hay rescate, se suma
+if (i === n - 1 && rescate > 0) {
+  vpn += (flujos[i] + rescate) / Math.pow(1 + tasa, i + 1);
+} else {
+  vpn += flujos[i] / Math.pow(1 + tasa, i + 1);
 }
 
-// Esta función conecta con el HTML ------------------------------------
-function probarVPN() {
-
-let inversion = Number(document.getElementById("inversion").value);
-let tasa = Number(document.getElementById("tasa").value) / 100;
-
-let flujosTexto = document.getElementById("flujos").value;
-let flujos = flujosTexto.split(",").map(f => Number(f));
-
-let resultado = ValorPresente(inversion, tasa, flujos);
-
-document.getElementById("resultado").innerText = "VPN: " + resultado.toFixed(2);
 }
+
+return vpn;
+}
+
+export { ValorPresente };
