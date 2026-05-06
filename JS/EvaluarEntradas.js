@@ -68,3 +68,5 @@ class EvaluarAlternativas {
     }
   }
 }
+
+export { TasaRendimiento };
