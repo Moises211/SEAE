@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de Alternativas - SEAE</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="text-center mb-5 fw-bold" style="color: var(--color1)">Simulador de Ingeniería Económica</h1>
+        
+        <div class="row g-3 mb-4 justify-content-center">
+            <div class="col-md-4">
+                <label for="metodoSeleccionado" class="form-label fw-semibold">Método de Evaluación</label>
+                <select id="metodoSeleccionado" class="form-select border-primary-subtle" onchange="actualizarInterfazPorMetodo()">
+                    <option value="CAE">Costo Anual Equivalente (CAE/VA)</option>
+                    <option value="VPN">Valor Presente Neto (VPN)</option>
+                    <option value="TIR">Tasa Interna de Rendimiento (TIR)</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="numAlternativas" class="form-label fw-semibold">Cantidad de Alternativas</label>
+                <select id="numAlternativas" class="form-select border-primary-subtle" onchange="renderizarAlternativas()">
+                    <option value="2">2 Alternativas</option>
+                    <option value="3">3 Alternativas</option>
+                    <option value="4">4 Alternativas</option>
+                    <option value="5">5 Alternativas</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="contenedorGlobalTMA" class="row justify-content-center mb-4" style="display: none;">
+            <div class="col-md-4">
+                <div class="card" style="border-color: var(--color1)">
+                    <div class="card-body p-2 text-center">
+                        <label for="tasaGlobalTMA" class="form-label small fw-bold" style="color: var(--color1)">TMA (Tasa Mínima Aceptable)</label>
+                        <input type="number" id="tasaGlobalTMA" class="form-control form-control-sm text-center" step="0.01" value="0.10">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid" id="contenedorAlternativas"></div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn btn-primary btn-lg shadow px-5" onclick="CalcularAlternativas()">Realizar Comparación</button>
+        </div>
+
+        <div class="resultado mt-5 shadow-sm">
+            <div id="res1" class="mb-3"></div>
+            <p id="res2"></p>
+            <div id="mejor" class="h4"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../JS/script.js"></script>
+</body>
+</html>

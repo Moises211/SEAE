@@ -39,7 +39,7 @@ class TasaRendimiento {
       var vpn = this.calcularValorPresenteNeto(tasa);
       if (vpn < 0) break;
       vpnPos = vpn;
-      tasaBaja.push(tasa);
+      tasaBaja.push({ tasa: parseFloat(tasa.toFixed(4)), vpn });
     }
     return { tasaBaja, vpnPos };
   }
@@ -52,7 +52,7 @@ class TasaRendimiento {
       var vpn = this.calcularValorPresenteNeto(tasa);
       if (vpn > 0) break;
       vpnNeg = vpn;
-      tasaAlta.push(tasa);
+      tasaAlta.push({ tasa: parseFloat(tasa.toFixed(4)), vpn });
     }
     return { tasaAlta, vpnNeg };
   }
@@ -64,15 +64,27 @@ class TasaRendimiento {
     let { tasaAlta, vpnNeg } = await this.calcularTasasAlta(tasa);
 
     let tasaIRR = 0;
+    
+    // Validar que existan datos en los arreglos para evitar NaN por acceso a índices inexistentes (undefined)
+    const tArrayBajo = tasaBaja.length > 0 ? tasaBaja[tasaBaja.length - 1].tasa : 0;
+    const tArrayAlto = tasaAlta.length > 0 ? tasaAlta[tasaAlta.length - 1].tasa : 1;
+    const divisor = vpnPos - vpnNeg;
 
-    tasaIRR += vpnPos / (vpnPos - vpnNeg);
-    proceso.push(tasaIRR);
-    tasaIRR *= (tasaAlta[tasaAlta.length - 1] - tasaBaja[tasaBaja.length - 1]);
-    proceso.push(tasaIRR);
-    tasaIRR += tasaBaja[tasaBaja.length - 1];
-    proceso.push(tasaIRR)
+    if (divisor !== 0 && tasaBaja.length > 0 && tasaAlta.length > 0) {
+        tasaIRR = vpnPos / divisor;
+        proceso.push(tasaIRR);
+        tasaIRR *= (tArrayAlto - tArrayBajo);
+        proceso.push(tasaIRR);
+        tasaIRR += tArrayBajo;
+        proceso.push(tasaIRR);
+    } else {
+        // Fallback: Si no hay cruce de signos en el rango, se asigna 0 o 1 (100%) según la rentabilidad
+        tasaIRR = (tasaBaja.length === 0) ? 0 : 1;
+        proceso.push(0, 0, tasaIRR);
+    }
+
     console.log("la tasa es", tasaIRR);
-    var aceptable = this.calculoAlternativa(tasaIRR);
+    var aceptable = await this.calculoAlternativa(tasaIRR);
     var alternativa = {
       nombre : this.nombre,
       tasaIRR: tasaIRR,

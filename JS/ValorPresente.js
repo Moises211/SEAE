@@ -7,27 +7,27 @@
 * El VPN consiste en traer todos los flujos de caja futuros a valor presente
 * utilizando una tasa de descuento, y restar la inversión inicial.
 *
-* @param {number} inversionInicial - Monto inicial invertido en el proyecto.
-* @param {number} tasa - Tasa de descuento en formato decimal (ej: 0.1 = 10%).
-* @param {Array<number>} flujos - Arreglo de flujos de caja por periodo.
-* @param {number} [rescate=0] - Valor de rescate al final del proyecto (opcional).
-* @returns {number} Valor presente neto del proyecto.
+* @param {number} inversionInicial  Monto inicial invertido en la alternativa.
+* @param {number} tasa Taasa de descuento en formato decimal (ej: 0.1 = 10%)
+* @param {Array<number>} flujos  Arreglo de flujos de caja por periodo.
+* @param {number} [rescate=0]  Valor de rescate al final de la alternativa (opcional).
+* @returns {number} Valor presente neto de la alternativa.
   */
-  
+
 function ValorPresente(inversionInicial, tasa, flujos, rescate = 0) {
-  
+
   if (!Array.isArray(flujos) || flujos.length === 0) {
     throw new Error("Los flujos deben ser un arreglo valido");
   }
 
   // Inicializamos el VPN con la inversión inicial negativa
-  let vpn = -inversionInicial;
-  
+  var vpn = -inversionInicial;
+
   // Número total de periodos
-  let n = flujos.length;
+  var n = flujos.length;
 
   // Recorremos cada flujo de caja
-  for (let i = 0; i < n; i++) {
+  for (var i = 0; i < n; i++) {
 
 
     // Si es el último periodo, se incluye el valor de rescate
