@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Ingeniería Económica</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS DEL PROYECTO -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<div class="container py-5">
+
+    <!-- TITULO -->
+    <h1 class="text-center fw-bold mb-4 text-primary">
+        Simulador de Ingeniería Económica
+    </h1>
+
+    <!-- CONFIGURACIÓN GENERAL -->
+    <div class="row g-3 justify-content-center">
+
+        <!-- MÉTODO -->
+        <div class="col-md-4">
+            <label class="form-label fw-semibold">Método</label>
+            <select id="metodoSeleccionado" class="form-select" onchange="actualizarInterfazPorMetodo()">
+                <option value="VPN">Valor Presente Neto (VPN)</option>
+                <option value="CAE">Costo Anual Equivalente (CAE)</option>
+                <option value="TIR">Tasa Interna de Retorno (TIR)</option>
+            </select>
+        </div>
+
+        <!-- NUMERO DE ALTERNATIVAS -->
+        <div class="col-md-4">
+            <label class="form-label fw-semibold">Alternativas</label>
+            <select id="numAlternativas" class="form-select" onchange="renderizarAlternativas()">
+                <option value="2">2 Alternativas</option>
+                <option value="3">3 Alternativas</option>
+                <option value="4">4 Alternativas</option>
+                <option value="5">5 Alternativas</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- TMA GLOBAL SOLO PARA TIR -->
+    <div id="contenedorGlobalTMA" class="row justify-content-center mt-4" style="display:none;">
+        <div class="col-md-4">
+            <div class="card p-3 text-center">
+                <label class="form-label fw-bold">TMA (Tasa mínima aceptable)</label>
+                <input type="number" id="tasaGlobalTMA" class="form-control text-center" step="0.01" value="0.10">
+            </div>
+        </div>
+    </div>
+
+    <!-- ALTERNATIVAS -->
+    <div id="contenedorAlternativas" class="mt-5"></div>
+
+    <!-- BOTÓN CALCULAR -->
+    <div class="text-center mt-4">
+        <button id="btnCalcular" class="btn btn-primary btn-lg px-5" onclick="CalcularAlternativas()">
+            Calcular Resultados
+        </button>
+    </div>
+
+        <!-- RESULTADOS COMPLETOS -->
+<div class="resultado mt-5 shadow-sm">
+
+    <h3 class="text-center text-primary mb-4">RESULTADOS</h3>
+
+    <!-- tabla / listado -->
+    <div id="res1" class="mb-4"></div>
+
+    <!-- resumen textual -->
+    <div id="res2" class="mb-4"></div>
+
+    <!-- mejor alternativa -->
+    <h2 class="text-center mt-4" id="mejor"></h2>
+
+    <!-- contenedor gráfico -->
+    <div class="charts-horizontal-container mt-5 p-4 rounded">
+        <canvas id="graficoResultados"></canvas>
+    </div>
+
+</div>
+  <!-- BOTÓN REPORTE -->
+        <div class="text-center mt-4">
+            <button id="btnReporte" class="btn btn-success btn-lg">
+                Generar Reporte PDF
+            </button>
+        </div>
+</div>
+
+<!-- BOOTSTRAP -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- SCRIPT PRINCIPAL (MODULO) -->
+<script type="module" src="../JS/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+/* Definición de la paleta de colores solicitada */
+:root {
+    --color1: #515c7a;
+    --color2: #3d455c;
+    --color3: #292e3d;
+    --color4: #14171f;
+    --color5: #000000;
+}
+
+body { 
+    background-color: var(--color5) !important; 
+    color: #ffffff;
+}
+
+.container {
+    background-color: var(--color4);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Ajustes de Bootstrap para la paleta */
+.text-primary { color: var(--color1) !important; }
+.bg-primary { background-color: var(--color1) !important; }
+.border-primary { border-color: var(--color1) !important; }
+.border-primary-subtle { border-color: var(--color2) !important; }
+
+.btn-primary {
+    background-color: var(--color1);
+    border-color: var(--color2);
+}
+
+.btn-primary:hover {
+    background-color: var(--color2);
+    border-color: var(--color1);
+}
+
+.form-control, .form-select {
+    background-color: var(--color3);
+    border-color: var(--color2);
+    color: #ffffff;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--color2);
+    border-color: var(--color1);
+    color: #ffffff;
+    box-shadow: 0 0 0 0.25rem rgba(81, 92, 122, 0.25);
+}
+
+.form-label { color: #cbd5e0; }
+
+/* Estilo para las tarjetas minimizadas */
+.card.minimized .card-body { display: none !important; }
+.card.minimized { border-bottom: 2px solid var(--color1); }
+
+.card {
+    background-color: var(--color3);
+    border-color: var(--color2);
+    width: 100%;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Errores visuales */
+.error-input {
+    border: 2px solid #dc3545 !important;
+    background-color: rgba(220, 53, 69, 0.1) !important;
+}
+
+/* Estilo para los resultados */
+.resultado {
+    background: var(--color3);
+    border: 2px solid var(--color2);
+    border-radius: 15px;
+    padding: 30px;
+}
+
+#mejor {
+    color: #ffffff;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px var(--color1);
+}
+
+/* Estilo para los placeholders en los campos de entrada */
+input::placeholder {
+    color: var(--color1) !important;
+    opacity: 0.7; /* Ajusta la opacidad para que se vea más o menos tenue */
+}
+
+/* Contenedor para gráficos horizontales */
+.charts-horizontal-container {
+    background-color: var(--color2); /* Color diferenciado de la paleta */
+    border: 1px solid var(--color1);
+}
+
+.chart-item {
+    flex: 1 1 450px;
+    max-width: 550px;
+}
