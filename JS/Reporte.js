@@ -158,7 +158,7 @@ export class Reporte {
 
         posY += 25;
 
-        // Insertar Resumen Comparativo Detallado si existe
+        // Insertar Resumen Detallado de Datos Insertados
         if (this.resumenComparativo) {
             doc.setTextColor(colorTexto[0], colorTexto[1], colorTexto[2]);
             doc.setFont("helvetica", "italic");

@@ -122,7 +122,7 @@ export function toggleModoCae(id) {
     if (invInput) invInput.style.display = modoVpn ? 'none' : 'block';
     if (resInput) resInput.style.display = modoVpn ? 'none' : 'block';
     if (nInput) nInput.style.display = 'block';
-    if (tablaFlujos) tablaFlujos.style.display = modoVpn ? 'none' : 'none'; // CAE siempre oculta tabla
+    if (tablaFlujos) tablaFlujos.style.display = modoVpn ? 'none' : 'none'; 
 }
 
 export function actualizarInterfazPorMetodo() {
@@ -133,7 +133,7 @@ export function actualizarInterfazPorMetodo() {
     const contenedorGlobalTMA = document.getElementById('contenedorGlobalTMA');
     const tasasIndividuales = document.querySelectorAll('.tasa-individual');
 
-    // Resetear visibilidad de campos base (I, S, n) por si veníamos de modo VPN en CAE
+    // Resetear visibilidad de campos base en CAE
     for (let i = 1; i <= num; i++) {
         const inv = document.getElementById(`I${i}`)?.parentElement;
         const res = document.getElementById(`S${i}`)?.parentElement;
@@ -154,10 +154,10 @@ export function actualizarInterfazPorMetodo() {
     // Habilitar Ingresos/Egresos únicamente para CAE
     camposOperativos.forEach(el => (/** @type {HTMLElement} */(el)).style.display = (metodo === "CAE" ? 'block' : 'none'));
 
-    // Habilitar controles avanzados de CAE solo en el método CAE
+    
     caeEspecifico.forEach(el => (/** @type {HTMLElement} */(el)).style.display = (metodo === "CAE" ? 'block' : 'none'));
     
-    // Si el método es CAE, asegurar que el estado inicial del campo VPN pre-calculado sea correcto
+    
     if (metodo === "CAE") {
         for (let i = 1; i <= num; i++) {
             toggleModoCae(i.toString());
@@ -173,7 +173,7 @@ export function actualizarInterfazPorMetodo() {
 }
 
 /**
- * Cambia el signo de los flujos de caja automáticamente según el modo seleccionado.
+ * Cambia el signo de los flujos de caja automáticamente según el modo 
  */
 export function actualizarTextoModo() {
     const check = /** @type {HTMLInputElement} */ (document.getElementById("tipoAnalisis"));
@@ -186,7 +186,7 @@ export function actualizarTextoModo() {
     }
 
     
-    // Seleccionar flujos de tabla y campos de VPN pre-calculado para CAE
+    
     const flujos = document.querySelectorAll('[class*="flujo-input-"], [id*="vpnInputCae"]');
     flujos.forEach(input => {
         const i = /** @type {HTMLInputElement} */ (input);

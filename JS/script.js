@@ -47,7 +47,7 @@ async function CalcularAlternativas() {
 
     /** 
      * Valida un objeto de datos financieros usando el evaluador.
-     * @param {Record<string, number>} d 
+     * @param {Record<string, any>} d 
      * @param {string} id 
      * @returns {boolean}
      */
@@ -61,7 +61,7 @@ async function CalcularAlternativas() {
             // Validar campos de Ingresos/Egresos solo si es método CAE
             if (metodo !== "CAE" && (campo === "R" || campo === "E")) continue;
 
-            // Si es CAE y usamos VPN precalculado, no validamos campos base que están ocultos en la UI
+            // Si es CAE y usamos VPN precalculado, no validamos 
             if (metodo === "CAE" && d.usarVpn && ["I", "S", "R", "E"].includes(campo)) continue;
 
             let inputId;
@@ -75,7 +75,8 @@ async function CalcularAlternativas() {
 
             const element = document.getElementById(inputId);
             
-            // Permitir 0 en Rescate, Ingresos, Egresos y VPN precalculado. Inversión y N deben ser > 0.
+            // Permitir 0 en Rescate, Ingresos, Egresos y VPN precalculado. 
+            // Inversión y N deben ser > 0.
             const puedeSerCero = ["S", "R", "E", "vpnCae"].includes(campo);
             
             const permitirNegativo = (campo === "vpnCae");
@@ -134,14 +135,14 @@ async function CalcularAlternativas() {
             let obj;
             if (datos.usarVpn) {
                 let vpnInput = datos.vpnCae;
-                // Si es modo costos, asegurar que el VPN sea tratado como negativo
+                // Asegurar que el VPN sea tratado como negativo
                 if (modoCostos && vpnInput > 0) vpnInput = -Math.abs(vpnInput);
-                obj = new CostoAnual(nombre, datos.i, datos.n, null, vpnInput);
+                obj = new CostoAnual(nombre, datos.i, datos.n, undefined, vpnInput);
                 flujosEvaluados = Array(datos.n).fill(0); // No hay flujos operativos conocidos
             } else {
                 obj = new CostoAnual(nombre, datos.i, datos.n, { inversion: datos.I, rescate: datos.S, ingresos: datos.R, egresos: datos.E });
                 let neto = datos.R - datos.E;
-                // Asegurar que el flujo para el gráfico respete el modo seleccionado
+                // Asegurar que el flujo para el gráfico respete lo seleccionado
                 if (modoCostos && neto !== 0) neto = -Math.abs(neto);
                 flujosEvaluados = Array(datos.n).fill(neto);
             }
@@ -166,7 +167,7 @@ async function CalcularAlternativas() {
     
     const areaResultados = /** @type {HTMLElement} */ (document.querySelector(".resultado"));
     /** @type {HTMLElement} */ (document.getElementById("res1")).innerHTML = "";
-    /** @type {HTMLElement} */ (document.getElementById("res2")).innerHTML = ""; // Usado como contenedor secundario
+    /** @type {HTMLElement} */ (document.getElementById("res2")).innerHTML = ""; 
     const mejorElemento = /** @type {HTMLElement} */ (document.getElementById("mejor"));
     mejorElemento.innerText = "";
 
@@ -268,7 +269,7 @@ async function CalcularAlternativas() {
         }
     }
 
-    // Crear el contenedor de conclusión destacado (el área ya fue limpiada al inicio)
+    // Crear el contenedor de conclusión
 
     const boxConclusion = document.createElement("div");
     boxConclusion.className = "conclusion-highlight mt-4 mb-4 shadow-sm";
@@ -280,7 +281,7 @@ async function CalcularAlternativas() {
     `;
     areaResultados.appendChild(boxConclusion);
 
-    // Generar el botón para exportar a PDF
+    // botón para exportar a PDF
     const btnContenedor = document.createElement("div");
     btnContenedor.className = "text-center mb-2 report-btn-container";
     
@@ -297,7 +298,7 @@ async function CalcularAlternativas() {
     areaResultados.appendChild(btnContenedor);
 }
 
-// Inicialización al cargar el documento
+// Inicialización 
 window.addEventListener('DOMContentLoaded', () => {
     UI.renderizarAlternativas();
 });

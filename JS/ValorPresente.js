@@ -30,7 +30,7 @@ function ValorPresente(inversionInicial, tasa, flujos, rescate = 0) {
   for (var i = 0; i < n; i++) {
 
 
-    // Si es el último periodo, se incluye el valor de rescate (soporta 0 y negativos)
+    // Si es el último periodo, se incluye el rescate 
     if (i === n - 1 && rescate !== 0) {
       vpn += (flujos[i] + rescate) / Math.pow(1 + tasa, i + 1);
     } else {
