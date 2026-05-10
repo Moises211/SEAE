@@ -3,21 +3,17 @@
 class CostoAnual {
   /**
    * @param {string} nombre
-   * @param {number} inversion
-   * @param {number} rescate
-   * @param {number} ingresos
-   * @param {number} egresos
    * @param {number} tasa
    * @param {number} n
+   * @param {Object} [datos] - Datos opcionales para cálculo completo
+   * @param {number} [vpn] - VPN opcional si ya se tiene calculado
    */
-  constructor(nombre, inversion, rescate, ingresos, egresos, tasa, n) {
+  constructor(nombre, tasa, n, datos, vpn) {
     this.nombre = nombre;
-    this.inversion = inversion;
-    this.rescate = rescate;
-    this.ingresos = ingresos;
-    this.egresos = egresos;
     this.tasa = tasa;
     this.n = n;
+    this.datos = datos; // { inversion, rescate, ingresos, egresos }
+    this.vpnPrecalculado = vpn;
   }
 
   /**
@@ -41,11 +37,17 @@ class CostoAnual {
    * @returns {number}
    */
   calcularValorAnual() {
-    // Calcula la recuperación anual de capital (RC) considerando el valor de rescate.
-    let RC = (this.inversion * this._factorAP()) - (this.rescate * this._factorAF());
+    if (this.vpnPrecalculado !== undefined && this.vpnPrecalculado !== null) {
+      
+      return this.vpnPrecalculado * this._factorAP();
+    }
 
-    // Calcula el valor anual equivalente neto (Ingresos - Egresos - Recuperación de Capital).
-    return this.ingresos - this.egresos - RC;
+    
+    const { inversion, rescate, ingresos, egresos } = this.datos;
+    let RC = (inversion * this._factorAP()) - (rescate * this._factorAF());
+
+    
+    return ingresos - egresos - RC;
   }
 }
 

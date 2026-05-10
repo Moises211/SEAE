@@ -83,6 +83,14 @@ body {
     text-shadow: 0 0 10px var(--color1);
 }
 
+/* Caja de conclusión destacada */
+.conclusion-highlight {
+    background-color: var(--color2);
+    border: 1px solid var(--color1);
+    border-radius: 15px;
+    padding: 25px;
+}
+
 /* Estilo para los placeholders en los campos de entrada */
 input::placeholder {
     color: var(--color1) !important;

@@ -14,17 +14,18 @@ class EvaluarAlternativas {
   }
   /**
    * @param {*} valor 
+   * @param {boolean} [permitirNegativo=false]
    */
-  evaluarDatosNumericos(valor) {
+  evaluarDatosNumericos(valor, permitirNegativo = false) {
     if (Number.isNaN(valor)) {
       return {
         estado: false,
         msg: "Los valores ingresados deben ser numericos"
       }
-    } else if (valor <= 0) {
+    } else if (!permitirNegativo && valor < 0) {
       return {
         estado: false,
-        msg: "Los valores ingresados deben ser mayores a 0"
+        msg: "El valor no puede ser negativo para este campo"
       }
     }
     return {
@@ -40,7 +41,7 @@ class EvaluarAlternativas {
     var erroneos = [];
 
     for (let index = 0; index < valor.length; index++) {
-      var estado = this.evaluarDatosNumericos(valor[index]);
+      var estado = this.evaluarDatosNumericos(valor[index], true);
       
       if (!estado.estado) {
         erroneos.push({
@@ -49,11 +50,7 @@ class EvaluarAlternativas {
         })
       }
     }
-    //Si no se encontraron erroneos entonces devuelve el array original y true,
-    /*
-    Esto debe hacerse validando la tabla editable con el array que devuelva de los tr de esta en cada alternativa 
-    para cada flujo.
-    */
+    
     if(erroneos.length === 0){
       return {
         valor: valor,
