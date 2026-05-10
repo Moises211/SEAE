@@ -20,7 +20,7 @@ class TasaRendimiento {
     var p = -this.inversionInicial;
     var vpn = 0;
     for (let i = 0; i < this.n; i++) {
-      if (i === this.n - 1 && this.rescate > 0 && this.rescate !== undefined) {
+      if (i === this.n - 1 && this.rescate !== 0) {
         vpn += (this.flujos[i] + this.rescate) / Math.pow(1 + tasa, i + 1);
         continue;
       }
@@ -65,7 +65,7 @@ class TasaRendimiento {
 
     let tasaIRR = 0;
     
-    // Validar que existan datos en los arreglos para evitar NaN por acceso a índices inexistentes (undefined)
+    
     const tArrayBajo = tasaBaja.length > 0 ? tasaBaja[tasaBaja.length - 1].tasa : 0;
     const tArrayAlto = tasaAlta.length > 0 ? tasaAlta[tasaAlta.length - 1].tasa : 1;
     const divisor = vpnPos - vpnNeg;
@@ -78,7 +78,7 @@ class TasaRendimiento {
         tasaIRR += tArrayBajo;
         proceso.push(tasaIRR);
     } else {
-        // Fallback: Si no hay cruce de signos en el rango, se asigna 0 o 1 (100%) según la rentabilidad
+        
         tasaIRR = (tasaBaja.length === 0) ? 0 : 1;
         proceso.push(0, 0, tasaIRR);
     }
